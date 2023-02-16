@@ -8,6 +8,7 @@ from twitter_profile_grabber import twitter
 from rec_stream import rec_stream
 from rclone_uploader import rclone_upload_log_file, rclone_upload_mp3_file
 from mixcloud_uploader import mixcloud
+from delete_old_files import delete_old_files
 
 
 def read_config(config_file):
@@ -64,3 +65,4 @@ if __name__ == "__main__":
                            stream_show, rclone_logs_cloud_name)
     mixcloud(stream_radio_station, stream_show, twitter_username, mixcloud_tag0, mixcloud_tag1,
              mixcloud_tag2, mixcloud_tag3, mixcloud_tag4, will_be_uploaded_to_mixcloud)
+    delete_old_files(stream_radio_station, stream_show)
