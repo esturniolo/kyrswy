@@ -49,10 +49,18 @@ Inside that file you must add the following info:
 
 All the magic (?) was thinked to use only the `cron.py` file combined with the `.ini` file.
 The idea is that you can have different `.ini` files: one for every Radio Show that you want to record. 
-Once you ran the `cron.py` with the `.ini` file, automagically a new entry should be appear in your `crontab` file who will wait until the exact time that you set in the `.ini` file to start to rec.
+Once you ran the `cron.py` with the `.ini` file (`$ python3 ~/kyrswy/scripts/cron.py ~/kyrswy/shows/[name_of_file.ini]`), automagically a new entry should be appear in your `crontab` file who will wait until the exact time that you set in the `.ini` file to start to rec.
+
+You can use `kyrswy.py` script alone too to start manually your recording combined with the `.ini` file: `$ python3 ~/kyrswy/scripts/kyrswy.py ~/kyrswy/shows/[name_of_file.ini]`
+
+After the rec ends, the script will call the Rclone remote to upload the mp3 file and logs. Locally you can find the files in `~/kyrswy/stations/[name_of_the_radio_station]/[name_of_the_radio_show]/recordings` and logs `~/kyrswy/stations/[name_of_the_radio_station]/[name_of_the_radio_show]/logs`. The logs will overwrite everytime you made a new record.
+
+The file will be named as `YYYY-MM-DD-[name_of_the_radio_station]-[name_of_the_radio_show].mp3`. So if you run the script twice in the day, you will overwrite the previuos recording. This was made because a Radio Show will be on air only one time a day.
+
+The script will delete the old files to keep always the last 5 of them deleting the old one only in the host, keeping all the recordings safe in the cloud service.
 
 ## TL;DR
-- Clone this repo into your home directory.
+- Clone this repo into your home directory (yes, is intended to work from `~/kyrswy`).
 - Create all the `.ini` files that you want or need following the instructions mentioned above.
 - Execute the script `$ python3 ~/kyrswy/scripts/cron.py ~/kyrswy/shows/[name_of_file.ini]` 
 - Take some coffee and wait to get your audio file ready in you cloud service that you configured before with Rclone.
